@@ -1,0 +1,129 @@
+name: AppleIIGS
+options:
+  bundleIdPrefix: com.boris.appleiigs
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+  xcodeVersion: "26.0"
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    CLANG_CXX_LANGUAGE_STANDARD: "gnu++17"
+    CLANG_CXX_LIBRARY: "libc++"
+    GCC_C_LANGUAGE_STANDARD: "gnu11"
+    CLANG_ENABLE_OBJC_ARC: YES
+    CLANG_ENABLE_MODULES: YES
+    ENABLE_BITCODE: NO
+    TARGETED_DEVICE_FAMILY: "1,2"
+    SWIFT_OBJC_BRIDGING_HEADER: "AppleIIGS/Bridge/AppleIIGS-Bridging-Header.h"
+    GCC_PREPROCESSOR_DEFINITIONS:
+      - "DRIVER_IOS=1"
+      - "ACTIVEGS=1"
+      - "USE_ACTIVEGS_DRIVER=1"
+      - "GNUC=1"
+      - "_LIBCPP_ENABLE_CXX17_REMOVED_BINDERS=1"
+      - "_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION=1"
+      - "$(inherited)"
+    CLANG_WARN_DOCUMENTATION_COMMENTS: NO
+    GCC_WARN_PEDANTIC: NO
+    GCC_WARN_UNUSED_FUNCTION: NO
+    GCC_WARN_UNUSED_VARIABLE: NO
+    GCC_WARN_SHADOW: NO
+    CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS: NO
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: NO
+    GCC_WARN_64_TO_32_BIT_CONVERSION: NO
+    CLANG_WARN_IMPLICIT_FALLTHROUGH: NO
+    CLANG_WARN_NON_LITERAL_NULL_CONVERSION: NO
+    CLANG_WARN_OBJC_LITERAL_CONVERSION: NO
+    GCC_WARN_ABOUT_RETURN_TYPE: NO
+    HEADER_SEARCH_PATHS:
+      - "$(SRCROOT)/AppleIIGS/Emulator"
+      - "$(SRCROOT)/AppleIIGS/Drivers"
+      - "$(SRCROOT)/AppleIIGS/Bridge"
+    OTHER_CFLAGS:
+      - "-Wno-everything"
+    OTHER_CPLUSPLUSFLAGS:
+      - "-Wno-everything"
+    GENERATE_INFOPLIST_FILE: NO
+
+targets:
+  AppleIIGS:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    dependencies:
+      - sdk: Foundation.framework
+      - sdk: CoreFoundation.framework
+      - sdk: AVFoundation.framework
+      - sdk: AudioToolbox.framework
+      - sdk: UIKit.framework
+      - sdk: CoreGraphics.framework
+      - sdk: QuartzCore.framework
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+      - sdk: Combine.framework
+      - sdk: SwiftUI.framework
+      - sdk: UniformTypeIdentifiers.framework
+    sources:
+      - path: AppleIIGS/App
+      - path: AppleIIGS/UI
+      - path: AppleIIGS/Bridge
+      - path: AppleIIGS/Drivers
+      - path: AppleIIGS/Emulator
+        excludes:
+          - "marinetti.cpp"
+          - "marinetti_helper.cpp"
+          - "scc_socket_driver.cpp"
+          - "openalasync_snddriver.cpp"
+          - "sound_driver.cpp"
+          - "GraphCounter.cpp"
+          - "compile_time.cpp"
+          - "compression.cpp"
+          - "dis.cpp"
+          - "SaveState.cpp"
+      - path: AppleIIGS/Resources/ROMs
+        type: folder
+        buildPhase: resources
+      - path: AppleIIGS/Resources/Disks
+        type: folder
+        buildPhase: resources
+      - path: AppleIIGS/Resources/Assets.xcassets
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.boris.appleiigs
+        PRODUCT_NAME: "Apple IIGS"
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: "AppleIIGS/Info.plist"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_ENTITLEMENTS: "AppleIIGS/AppleIIGS.entitlements"
+      properties:
+        CFBundleDevelopmentRegion: en
+        CFBundleDisplayName: "Apple IIGS"
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UIApplicationSupportsIndirectInputEvents: true
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+        LSSupportsOpeningDocumentsInPlace: true
+        UIFileSharingEnabled: true
+        UISupportsDocumentBrowser: true
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: "Apple II Disk Image"
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Owner
+            LSItemContentTypes:
+              - public.data
+            CFBundleTypeExtensions:
+              - "2mg"
+              - "dsk"
+              - "do"
+              - "po"
+              - "hdv"
+              - "nib"
+              - "woz"
